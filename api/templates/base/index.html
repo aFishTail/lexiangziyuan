@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        乐享资源库 - 让知识触手可及，让成长没有边界
+      {% endblock %}
+    </title>
+    <meta name="description"
+      content="{% block meta_description %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {% endblock %}" />
+    <meta name="keywords"
+      content="{% block meta_keywords %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        学习资源,知识分享,在线学习,教程
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {% endblock %}" />
+    <!-- Open Graph / 社交媒体元数据 -->
+    <meta property="og:title"
+      content="{% block og_title %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        乐享资源库 - 让知识触手可及，让成长没有边界
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {% endblock %}" />
+    <meta property="og:description"
+      content="{% block og_description %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {% endblock %}" />
+    <meta property="og:type"
+      content="{% block og_type %}
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        website
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {% endblock %}" />
+    <meta property="og:url"
+      content="{% block og_url %}
+        {{ request.build_absolute_uri }}
+      {% endblock %}" />
+    <meta property="og:image"
+      content="{% block og_image %}
+        {% static 'image/logo.png' %}
+      {% endblock %}" />
+    <!-- 标准链接 -->
+    <link rel="canonical"
+      href="{% block canonical_url %}
+        {{ request.build_absolute_uri }}
+      {% endblock %}" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="{% static 'js/jquery-3.7.1.slim.min.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'css/iconfont.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P82HW2FCE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      
+      gtag('config', 'G-9P82HW2FCE')
+    </script>
+    <script>
+      var _hmt = _hmt || []
+      ;(function () {
+        var hm = document.createElement('script')
+        hm.src = 'https://hm.baidu.com/hm.js?315845b483362d4fe831f6e85261190a'
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(hm, s)
+      })()
+    </script>
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+    {% include 'base/header.html' %}
+    <main class="flex-grow container mx-auto px-4 py-8">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+    {% include 'base/footer.html' %}
+  </body>
+</html>

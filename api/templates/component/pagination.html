@@ -1,0 +1,45 @@
+<!-- 分页 -->
+{% if is_paginated %}
+  <div class="w-full flex justify-center mt-8">
+    <div class="flex items-center">
+      <span class="text-gray-600 mx-4">{{ page_obj.number }}/{{ paginator.num_pages }}</span>
+      <div class="join mx-auto">
+        {% if current_category_id %}
+          <!-- 有分类筛选时的分页链接 -->
+          <a href="{% url 'article:category' category_id=current_category_id %}"><button class="join-item btn">首页</button></a>
+          {% if page_obj.has_previous %}
+            <a href="{% url 'article:category_page' category_id=current_category_id page=page_obj.previous_page_number %}"><button class="join-item btn">上一页</button></a>
+          {% endif %}
+          {% with start=page_obj.number|add:'-2' end=page_obj.number|add:'2' %}
+            {% for p in paginator.page_range %}
+              {% if p >= start and p <= end %}
+                <a href="{% url 'article:category_page' category_id=current_category_id page=p %}"><button class="join-item btn {% if p == page_obj.number %}btn-active{% endif %}">{{ p }}</button></a>
+              {% endif %}
+            {% endfor %}
+          {% endwith %}
+          {% if page_obj.has_next %}
+            <a href="{% url 'article:category_page' category_id=current_category_id page=page_obj.next_page_number %}"><button class="join-item btn">下一页</button></a>
+          {% endif %}
+          <a href="{% url 'article:category_page' category_id=current_category_id page=paginator.num_pages %}"><button class="join-item btn">尾页</button></a>
+        {% else %}
+          <!-- 无分类筛选时的分页链接 -->
+          <a href="{% url 'article:index' %}"><button class="join-item btn">首页</button></a>
+          {% if page_obj.has_previous %}
+            <a href="{% url 'article:page' page=page_obj.previous_page_number %}"><button class="join-item btn">上一页</button></a>
+          {% endif %}
+          {% with start=page_obj.number|add:'-2' end=page_obj.number|add:'2' %}
+            {% for p in paginator.page_range %}
+              {% if p >= start and p <= end %}
+                <a href="{% url 'article:page' page=p %}"><button class="join-item btn {% if p == page_obj.number %}btn-active{% endif %}">{{ p }}</button></a>
+              {% endif %}
+            {% endfor %}
+          {% endwith %}
+          {% if page_obj.has_next %}
+            <a href="{% url 'article:page' page=page_obj.next_page_number %}"><button class="join-item btn">下一页</button></a>
+          {% endif %}
+          <a href="{% url 'article:page' page=paginator.num_pages %}"><button class="join-item btn">尾页</button></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}

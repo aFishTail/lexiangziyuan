@@ -1,0 +1,10 @@
+POST https://www.lxziyuan.com/api/token/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "username": "wangheng",
+    "password": "lenjoy123!@#"
+}
+
+###

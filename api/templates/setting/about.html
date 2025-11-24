@@ -1,0 +1,149 @@
+{% extends 'base/index.html' %}
+{% load static %}
+
+{% block title %}
+  关于我们 - 乐享资源库
+{% endblock %}
+
+{% block meta_description %}
+  乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+{% endblock %}
+
+{% block meta_keywords %}
+  关于我们,乐享资源库,学习资源平台,知识分享,资源共享，网盘资源，云盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利
+{% endblock %}
+
+{% block og_title %}
+  关于我们 - 乐享资源库
+{% endblock %}
+
+{% block og_description %}
+  乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+{% endblock %}
+
+{% block content %}
+  <!-- 样式定义 -->
+  <style>
+    .timeline {
+      @apply relative border-l-2 border-base-300 pl-8 ml-4;
+    }
+    .timeline-item {
+      @apply relative mb-8;
+    }
+    .timeline-marker {
+      @apply absolute w-4 h-4 bg-primary rounded-full -left-[10px] top-4;
+    }
+    .timeline-content {
+      @apply ml-4;
+    }
+    @screen md {
+      .timeline {
+        @apply pl-12;
+      }
+      .timeline-content {
+        @apply ml-6;
+      }
+    }
+  </style>
+  <div class="container mx-auto px-4 py-12">
+    <!-- 标题区 -->
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-primary mb-4">🌟 关于我们</h1>
+      <p class="text-lg text-neutral">让知识触手可及，让成长没有边界</p>
+    </div>
+
+    <!-- 垂直布局内容区 -->
+    <div class="flex flex-col gap-8 max-w-3xl mx-auto">
+      <!-- 使命卡片 -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-2xl mb-4">📚 我们的使命</h2>
+          <p class="text-neutral leading-relaxed">我们致力于打造互联网上最优质的学习资源共享平台，完全免费向所有用户开放。</p>
+          {% comment %} <div class="stats shadow mt-4">
+            <div class="stat">
+              <div class="stat-title">累计用户</div>
+              <div class="stat-value text-primary">1,234,567</div>
+              <div class="stat-desc">2023年至今</div>
+            </div>
+          </div> {% endcomment %}
+        </div>
+      </div>
+
+      <!-- 站长卡片 -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-2xl mb-4">👨💻 站长介绍</h2>
+          <div class="flex flex-col lg:flex-row items-center gap-6">
+            <div class="avatar">
+              <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src="{% static 'image/yuweitx.jpg' %}" alt="站长头像" />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <p class="text-neutral">
+                <span class="badge badge-primary">技术极客</span>
+                <span class="badge badge-secondary">开源贡献者</span>
+              </p>
+              <p class="leading-relaxed">十年全栈开发经验，开源社区活跃成员</p>
+              <p class="leading-relaxed">技术爱好者，终身学习实践者</p>
+            </div>
+          </div>
+        </div>
+        {% comment %} <div class="stats shadow mt-4">
+          <div class="stat">
+            <div class="stat-title">累计用户</div>
+            <div class="stat-value text-primary">1,234,567</div>
+            <div class="stat-desc">2023年至今</div>
+          </div>
+        </div> {% endcomment %}
+        <!-- 二维码区 -->
+        <div class="divider"></div>
+        <div class="text-center pb-8">
+          <h3 class="text-lg font-semibold mb-4">扫码添加微信</h3>
+          <div class="mockup-code bg-neutral p-4 inline-block">
+            <!-- daisyUI代码风格容器[4](@ref) -->
+            <img src="{% static 'image/yuweiq2code.png' %}" alt="微信二维码" class="w-48 h-48 object-contain" onerror="this.style.display='none'" />
+          </div>
+          <p class="text-sm mt-2 text-neutral">添加请备注「乐享资源库」，添加微信后可申请加入【微信群】获取更多资源和交流机会。</p>
+        </div>
+      </div>
+
+      <!-- 时间轴更新日志 -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="text-3xl font-bold text-center mb-8">⏳ 更新日志</h2>
+          <!-- 时间轴项目 -->
+          {% for log in update_logs %}
+            <div class="relative mb-8">
+              <div class="ml-4 card bg-base-100 shadow">
+                <div class="card-body">
+                  <h3 class="card-title text-lg">
+                    {{ log.title }}
+                    <span class="text-sm font-normal text-neutral">{{ log.date }}</span>
+                  </h3>
+                  <p class="text-neutral">{{ log.content }}</p>
+                  {% if log.badge %}
+                    <div class="mt-2">
+                      <span class="badge badge-secondary">{{ log.badge }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- 联系按钮组 -->
+    {% comment %} <div class="flex justify-center gap-4 mt-12">
+      <a class="btn btn-primary gap-2">
+        <!-- daisyUI按钮组件[2,5](@ref) -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>联系我们
+      </a>
+      <button class="btn btn-outline">服务条款</button>
+    </div> {% endcomment %}
+  </div>
+{% endblock %}

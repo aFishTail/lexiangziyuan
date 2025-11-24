@@ -1,0 +1,217 @@
+{% extends 'base/index.html' %} {% block content %}
+  <!-- 主要内容区域 -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- 搜索区域 -->
+    <div class="mb-8 flex flex-col items-center">
+      <form action="{% url 'article:search' %}" method="GET" class="w-full flex justify-center">
+        <div class="w-4/5 relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <div class="w-5 h-5 flex items-center justify-center text-gray-400">
+              <i class="ri-search-line"></i>
+            </div>
+          </div>
+          <input type="text" name="keyword" value="{{ request.GET.keyword }}" class="search-input w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-lg shadow-sm transition-all text-gray-800" placeholder="搜索资源、文档、视频、音频等" />
+          <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white px-6 py-2 rounded-button whitespace-nowrap hover:bg-blue-600 transition-colors">搜索</button>
+        </div>
+      </form>
+
+      <!-- 热门搜索标签 -->
+      <div class="mt-4 flex flex-wrap justify-center gap-2">
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">设计模板</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">视频教程</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">商业报告</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">电子书籍</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">音频素材</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">图标集合</span>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-gray-200 cursor-pointer transition-colors">字体下载</span>
+      </div>
+    </div>
+
+    <!-- 筛选区域 -->
+    {% comment %}
+    <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
+      <div class="flex flex-wrap gap-6">
+        <div class="flex items-center">
+          <span class="text-gray-700 mr-2">资源类型:</span>
+          <div class="relative">
+            <select class="custom-select bg-gray-50 border border-gray-200 text-gray-700 py-2 pl-3 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <option>全部</option>
+              <option>文档</option>
+              <option>图片</option>
+              <option>视频</option>
+              <option>音频</option>
+              <option>模板</option>
+              <option>软件</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <span class="text-gray-700 mr-2">更新时间:</span>
+          <div class="relative">
+            <select class="custom-select bg-gray-50 border border-gray-200 text-gray-700 py-2 pl-3 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <option>不限</option>
+              <option>今天</option>
+              <option>本周</option>
+              <option>本月</option>
+              <option>今年</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <span class="text-gray-700 mr-2">文件大小:</span>
+          <div class="relative">
+            <select class="custom-select bg-gray-50 border border-gray-200 text-gray-700 py-2 pl-3 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <option>不限</option>
+              <option>小于10MB</option>
+              <option>10MB-100MB</option>
+              <option>100MB-1GB</option>
+              <option>大于1GB</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <span class="text-gray-700 mr-2">评分:</span>
+          <div class="relative">
+            <select class="custom-select bg-gray-50 border border-gray-200 text-gray-700 py-2 pl-3 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <option>不限</option>
+              <option>4星以上</option>
+              <option>3星以上</option>
+              <option>2星以上</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center ml-auto">
+          <span class="text-gray-700 mr-2">排序方式:</span>
+          <div class="relative">
+            <select class="custom-select bg-gray-50 border border-gray-200 text-gray-700 py-2 pl-3 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <option>综合排序</option>
+              <option>最新上传</option>
+              <option>下载量最高</option>
+              <option>评分最高</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- 主要内容区 -->
+      <div class="w-full md:w-2/3">
+        {% if request.GET.keyword %}
+          <div class="mb-4 text-gray-600">
+            找到
+            <span class="font-medium text-primary">{{ page_obj.paginator.count }}</span>
+            条与 "<span class="font-medium text-primary">{{ request.GET.keyword }}</span>" 相关的结果
+          </div>
+        {% endif %}
+
+        <!-- 文章列表 -->
+        <div class="mt-6 space-y-6">
+          {% for resource in resource_list %}
+            <a href="{% url 'article:detail' resource.id %}" class="block transition-transform hover:translate-x-1">
+              <div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row">
+                {% if resource.cover_img %}
+                  <div class="md:w-1/3 w-full">
+                    <img src="{{ MEDIA_URL }}{{ resource.cover_img.url }}" alt="{{ resource.name }}" class="h-full w-full object-cover" />
+                  </div>
+                {% endif %}
+                <div class="p-5 flex-1 flex flex-col justify-between {% if not resource.cover_img %}
+                    w-full
+                  {% else %}
+                    md:w-2/3
+                  {% endif %}">
+                  <div>
+                    <div class="flex justify-between items-start mb-3">
+                      <h3 class="font-semibold text-lg text-gray-800 hover:text-primary">{{ resource.name }}</h3>
+                      <div class="flex flex-wrap gap-1 justify-end">
+                        {% for tag in resource.tags.all|slice:':2' %}
+                          <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">{{ tag.name }}</span>
+                        {% empty %}
+                          <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full">搜索结果</span>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">{{ resource.content|striptags|truncatechars:150 }}</p>
+                  </div>
+                  <div class="flex justify-between items-center text-sm text-gray-500">
+                    <span class="flex items-center"><i class="ri-calendar-line mr-1"></i>2025-04-01</span>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex items-center">
+                        <i class="ri-eye-line mr-1"></i>
+                        <span>{{ resource.view_count }}</span>
+                      </div>
+                      <div class="flex items-center">
+                        <i class="ri-chat-1-line mr-1"></i>
+                        <span>{{ resource.comment_set.count|default:'0' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% empty %}
+            <div class="text-center p-8 bg-white rounded-lg shadow-sm">
+              <p class="text-gray-500">抱歉，没有找到与"{{ request.GET.keyword }}"相关的文章</p>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% include 'component/pagination.html' %}
+      </div>
+
+      <!-- 侧边栏 -->
+      <div class="w-full md:w-1/3 space-y-6">
+        <!-- 最近热门文章 -->
+        <div class="bg-white rounded-lg shadow-sm p-5">
+          <h3 class="text-lg font-semibold mb-4 pb-2 border-b flex items-center"><i class="ri-fire-line mr-2 text-red-500"></i>热门文章</h3>
+          <div class="space-y-4">
+            {% for hot_article in hot_articles|default:resource_list|slice:':5' %}
+              <a href="{% url 'article:detail' hot_article.id %}" class="block group">
+                <div class="flex items-start space-x-2">
+                  <span class="flex-shrink-0 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium text-gray-600 group-hover:bg-primary group-hover:text-white transition-colors">{{ forloop.counter }}</span>
+                  <div class="flex-1">
+                    <h4 class="text-sm text-gray-700 font-medium group-hover:text-primary transition-colors line-clamp-2">{{ hot_article.name }}</h4>
+                    <div class="text-xs text-gray-500 mt-1 flex items-center">
+                      <i class="ri-eye-line mr-1"></i>
+                      <span>{{ hot_article.view_count }}</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- 随机推荐 -->
+        <div class="bg-white rounded-lg shadow-sm p-5">
+          <h3 class="text-lg font-semibold mb-4 pb-2 border-b flex items-center"><i class="ri-magic-line mr-2 text-indigo-500"></i>随机推荐</h3>
+          <div class="space-y-4">
+            {% for random_article in random_articles|default:resource_list|slice:':5' %}
+              <a href="{% url 'article:detail' random_article.id %}" class="block">
+                <div class="flex items-center space-x-3">
+                  {% if random_article.cover_img %}
+                    <div class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+                      <img src="{{ MEDIA_URL }}{{ random_article.cover_img.url }}" alt="{{ random_article.name }}" class="w-full h-full object-cover" />
+                    </div>
+                  {% else %}
+                    <div class="w-16 h-16 flex-shrink-0 rounded-md bg-gray-100 flex items-center justify-center">
+                      <i class="ri-article-line text-gray-400 text-xl"></i>
+                    </div>
+                  {% endif %}
+                  <div class="flex-1">
+                    <h4 class="text-sm text-gray-700 font-medium hover:text-primary transition-colors line-clamp-2">{{ random_article.name }}</h4>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

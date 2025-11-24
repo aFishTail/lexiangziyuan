@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>资源详情</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#3b82f6", secondary: "#64748b" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      }
+      .resource-preview img {
+      max-height: 400px;
+      object-fit: contain;
+      }
+      input:focus, textarea:focus {
+      outline: none;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-10">
+      <div
+        class="container mx-auto px-4 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center">
+          <button
+            class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors"
+          >
+            <i class="ri-arrow-left-line ri-lg"></i>
+          </button>
+          <div class="ml-4 flex items-center text-sm">
+            <a
+              href="#"
+              class="text-gray-600 hover:text-primary transition-colors"
+              >营销资源</a
+            >
+            <i class="ri-arrow-right-s-line mx-1 text-gray-400"></i>
+            <a
+              href="#"
+              class="text-gray-600 hover:text-primary transition-colors"
+              >策略模板</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button
+            class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors"
+          >
+            <i class="ri-share-line ri-lg"></i>
+          </button>
+          <button
+            class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors"
+          >
+            <i class="ri-star-line ri-lg"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-24">
+      <!-- 资源基本信息区 -->
+      <section class="bg-white rounded shadow-sm p-6 mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">
+          2025年营销策略白皮书模板（含数据分析工具）
+        </h2>
+        <div class="flex flex-wrap items-center gap-4 mb-4">
+          <span class="px-3 py-1 bg-blue-50 text-primary text-sm rounded-full"
+            >营销策略</span
+          >
+          <span
+            class="px-3 py-1 bg-green-50 text-green-600 text-sm rounded-full"
+            >PPT模板</span
+          >
+          <span
+            class="px-3 py-1 bg-purple-50 text-purple-600 text-sm rounded-full"
+            >高级会员</span
+          >
+        </div>
+        <div class="flex items-center text-gray-500 text-sm mb-4">
+          <div class="flex items-center mr-4">
+            <i class="ri-user-line mr-1"></i>
+            <span>陈思远</span>
+          </div>
+          <div class="flex items-center mr-4">
+            <i class="ri-time-line mr-1"></i>
+            <span>2025-04-01 上传</span>
+          </div>
+          <div class="flex items-center">
+            <i class="ri-eye-line mr-1"></i>
+            <span>1,245 次浏览</span>
+          </div>
+        </div>
+      </section>
+      <!-- 资源预览区 -->
+      <section class="bg-white rounded shadow-sm p-6 mb-6">
+        <div class="resource-preview flex justify-center mb-4">
+          <img
+            src="https://public.readdy.ai/ai/img_res/67a8b73a471c7a57c5fe2a7fc35cfa79.jpg"
+            alt="营销策略白皮书预览"
+            class="rounded"
+          />
+        </div>
+        <div class="flex justify-center">
+          <button
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-button hover:bg-gray-200 transition-colors whitespace-nowrap flex items-center"
+          >
+            <i class="ri-fullscreen-line mr-2"></i>
+            <span>查看大图</span>
+          </button>
+        </div>
+      </section>
+      <!-- 资源详细信息 -->
+      <section class="bg-white rounded shadow-sm p-6 mb-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">资源详情</h3>
+        <div class="mb-6">
+          <h4 class="text-base font-medium text-gray-800 mb-2">资源描述</h4>
+          <p class="text-gray-600 leading-relaxed">
+            这是一份专业的营销策略白皮书模板，适用于企业年度营销规划、季度策略制定或产品推广方案设计。模板包含完整的市场分析框架、目标客户画像、竞品分析、营销渠道规划、预算分配以及效果评估等章节。同时附带了可编辑的数据分析工具，帮助您轻松生成专业的数据可视化图表。
+          </p>
+        </div>
+        <div class="mb-6">
+          <h4 class="text-base font-medium text-gray-800 mb-2">资源属性</h4>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex flex-col">
+              <span class="text-gray-500 text-sm">文件格式</span>
+              <span class="text-gray-700">PPTX, PDF</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-gray-500 text-sm">文件大小</span>
+              <span class="text-gray-700">15.8 MB</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-gray-500 text-sm">页数</span>
+              <span class="text-gray-700">36 页</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-gray-500 text-sm">分辨率</span>
+              <span class="text-gray-700">16:9 宽屏</span>
+            </div>
+          </div>
+        </div>
+        <div class="mb-6">
+          <h4 class="text-base font-medium text-gray-800 mb-2">使用说明</h4>
+          <ul class="list-disc list-inside text-gray-600 space-y-2">
+            <li>模板适用于 PowerPoint 2016 及以上版本</li>
+            <li>包含可编辑的图表和数据表格，可根据实际需求修改</li>
+            <li>内置多种配色方案，可一键切换品牌风格</li>
+            <li>附带详细的使用指南和最佳实践建议</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-base font-medium text-gray-800 mb-2">版权信息</h4>
+          <p class="text-gray-600">
+            本资源采用 CC BY-NC-SA 4.0
+            授权协议，可用于非商业用途，在署名原作者的情况下允许修改和分享，但必须以相同方式共享。详细授权条款请参阅完整的许可协议。
+          </p>
+        </div>
+      </section>
+      <!-- 相关推荐区 -->
+      <section class="bg-white rounded shadow-sm p-6 mb-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">相关推荐</h3>
+        <div class="overflow-x-auto pb-4">
+          <div class="flex space-x-4 min-w-max">
+            <div class="w-64 flex-shrink-0">
+              <div
+                class="bg-white rounded overflow-hidden border border-gray-100"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/9d67e79cece3f7bcb2d21da6e4b9c72a.jpg"
+                  alt="数据分析模板"
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-3">
+                  <h4 class="text-gray-900 font-medium text-sm mb-1 truncate">
+                    数据分析仪表盘模板
+                  </h4>
+                  <div class="flex items-center text-gray-500 text-xs">
+                    <span>PPT模板</span>
+                    <span class="mx-1">·</span>
+                    <span>2025-03-28</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-64 flex-shrink-0">
+              <div
+                class="bg-white rounded overflow-hidden border border-gray-100"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/b1a5948ff56c1d4be682b5c3a6d4dbb9.jpg"
+                  alt="社媒营销模板"
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-3">
+                  <h4 class="text-gray-900 font-medium text-sm mb-1 truncate">
+                    社交媒体营销策略工具包
+                  </h4>
+                  <div class="flex items-center text-gray-500 text-xs">
+                    <span>Excel模板</span>
+                    <span class="mx-1">·</span>
+                    <span>2025-03-15</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-64 flex-shrink-0">
+              <div
+                class="bg-white rounded overflow-hidden border border-gray-100"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/3d0f534bd7f732f91e74c9686f2676a2.jpg"
+                  alt="产品发布模板"
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-3">
+                  <h4 class="text-gray-900 font-medium text-sm mb-1 truncate">
+                    产品发布会演示模板
+                  </h4>
+                  <div class="flex items-center text-gray-500 text-xs">
+                    <span>PPT模板</span>
+                    <span class="mx-1">·</span>
+                    <span>2025-03-10</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-64 flex-shrink-0">
+              <div
+                class="bg-white rounded overflow-hidden border border-gray-100"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/959ac030388667e6617896e5b6987aa0.jpg"
+                  alt="市场研究报告"
+                  class="w-full h-40 object-cover"
+                />
+                <div class="p-3">
+                  <h4 class="text-gray-900 font-medium text-sm mb-1 truncate">
+                    市场研究报告模板
+                  </h4>
+                  <div class="flex items-center text-gray-500 text-xs">
+                    <span>Word模板</span>
+                    <span class="mx-1">·</span>
+                    <span>2025-02-25</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 评论区 -->
+      <section class="bg-white rounded shadow-sm p-6 mb-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">用户评论</h3>
+        <div class="mb-6">
+          <div class="flex items-start mb-4">
+            <textarea
+              placeholder="分享你的想法..."
+              class="w-full border border-gray-200 rounded p-3 text-gray-700 resize-none h-24 focus:border-primary transition-colors"
+            ></textarea>
+          </div>
+          <div class="flex justify-end">
+            <button
+              class="px-6 py-2 bg-primary text-white rounded-button hover:bg-blue-600 transition-colors whitespace-nowrap"
+            >
+              发表评论
+            </button>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex items-start">
+              <div
+                class="w-10 h-10 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/8c309c638abacb2b2f17993fcf99a8c1.jpg"
+                  alt="用户头像"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="ml-3 flex-1">
+                <div class="flex items-center justify-between mb-1">
+                  <h4 class="text-gray-900 font-medium">刘雨婷</h4>
+                  <span class="text-gray-500 text-sm">2025-04-06</span>
+                </div>
+                <p class="text-gray-700 mb-2">
+                  这个模板太实用了！我用它做了一份季度营销报告，领导非常满意。特别是数据分析工具，帮我节省了很多时间。强烈推荐给需要做营销策划的同事们。
+                </p>
+                <div class="flex items-center text-gray-500 text-sm">
+                  <button
+                    class="flex items-center hover:text-primary transition-colors"
+                  >
+                    <i class="ri-thumb-up-line mr-1"></i>
+                    <span>12</span>
+                  </button>
+                  <button class="ml-4 hover:text-primary transition-colors">
+                    回复
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex items-start">
+              <div
+                class="w-10 h-10 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/7bc64a27d56185b7e042c497423dda30.jpg"
+                  alt="用户头像"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="ml-3 flex-1">
+                <div class="flex items-center justify-between mb-1">
+                  <h4 class="text-gray-900 font-medium">张志远</h4>
+                  <span class="text-gray-500 text-sm">2025-04-05</span>
+                </div>
+                <p class="text-gray-700 mb-2">
+                  模板内容很全面，但是有些图表在我的 Office 2019
+                  上显示有问题，希望能提供兼容性更好的版本。
+                </p>
+                <div class="flex items-center text-gray-500 text-sm">
+                  <button
+                    class="flex items-center hover:text-primary transition-colors"
+                  >
+                    <i class="ri-thumb-up-line mr-1"></i>
+                    <span>3</span>
+                  </button>
+                  <button class="ml-4 hover:text-primary transition-colors">
+                    回复
+                  </button>
+                </div>
+                <!-- 回复内容 -->
+                <div class="mt-3 bg-gray-50 p-3 rounded">
+                  <div class="flex items-start">
+                    <div
+                      class="w-8 h-8 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden"
+                    >
+                      <img
+                        src="https://public.readdy.ai/ai/img_res/94e3de2918d0dd10c73cd5b7264b888f.jpg"
+                        alt="管理员头像"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div class="ml-2 flex-1">
+                      <div class="flex items-center justify-between mb-1">
+                        <h4 class="text-gray-900 font-medium text-sm">
+                          王晓梅
+                          <span class="text-primary text-xs">管理员</span>
+                        </h4>
+                        <span class="text-gray-500 text-xs">2025-04-05</span>
+                      </div>
+                      <p class="text-gray-700 text-sm">
+                        您好，感谢您的反馈！我们将在下一版本中优化兼容性问题。同时，您可以尝试使用模板包中的"兼容模式"文件夹下的版本，或联系客服获取帮助。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex items-start">
+              <div
+                class="w-10 h-10 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden"
+              >
+                <img
+                  src="https://public.readdy.ai/ai/img_res/6237bc30a3a52e4e2e776ae212507e9b.jpg"
+                  alt="用户头像"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="ml-3 flex-1">
+                <div class="flex items-center justify-between mb-1">
+                  <h4 class="text-gray-900 font-medium">李明宇</h4>
+                  <span class="text-gray-500 text-sm">2025-04-03</span>
+                </div>
+                <p class="text-gray-700 mb-2">
+                  设计非常精美，内容也很专业。唯一的建议是希望能增加更多行业特定的案例分析，这样对不同行业的用户会更有帮助。
+                </p>
+                <div class="flex items-center text-gray-500 text-sm">
+                  <button
+                    class="flex items-center hover:text-primary transition-colors"
+                  >
+                    <i class="ri-thumb-up-line mr-1"></i>
+                    <span>8</span>
+                  </button>
+                  <button class="ml-4 hover:text-primary transition-colors">
+                    回复
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- 底部操作区 -->
+    <footer
+      class="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-10"
+    >
+      <div
+        class="container mx-auto px-4 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center">
+          <button
+            class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors"
+          >
+            <i class="ri-star-line ri-lg"></i>
+          </button>
+          <button
+            class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary transition-colors ml-2"
+          >
+            <i class="ri-share-line ri-lg"></i>
+          </button>
+          <button
+            class="text-red-500 hover:text-red-600 transition-colors ml-4 text-sm"
+          >
+            举报
+          </button>
+        </div>
+        <button
+          class="px-8 py-2.5 bg-primary text-white rounded-button hover:bg-blue-600 transition-colors whitespace-nowrap flex items-center"
+        >
+          <i class="ri-download-line mr-2"></i>
+          <span>立即下载</span>
+        </button>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 返回按钮功能
+        const backButton = document.querySelector("header button");
+        backButton.addEventListener("click", function () {
+          window.history.back();
+        });
+        // 收藏按钮功能
+        const favoriteButtons = document.querySelectorAll(
+          "button:has(.ri-star-line)",
+        );
+        favoriteButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const icon = button.querySelector("i");
+            if (icon.classList.contains("ri-star-line")) {
+              icon.classList.remove("ri-star-line");
+              icon.classList.add("ri-star-fill");
+              icon.classList.add("text-yellow-500");
+            } else {
+              icon.classList.remove("ri-star-fill");
+              icon.classList.remove("text-yellow-500");
+              icon.classList.add("ri-star-line");
+            }
+          });
+        });
+        // 点赞功能
+        const likeButtons = document.querySelectorAll(
+          "button:has(.ri-thumb-up-line)",
+        );
+        likeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const icon = button.querySelector("i");
+            const count = button.querySelector("span");
+            if (icon.classList.contains("ri-thumb-up-line")) {
+              icon.classList.remove("ri-thumb-up-line");
+              icon.classList.add("ri-thumb-up-fill");
+              count.textContent = parseInt(count.textContent) + 1;
+              button.classList.add("text-primary");
+            } else {
+              icon.classList.remove("ri-thumb-up-fill");
+              icon.classList.add("ri-thumb-up-line");
+              count.textContent = parseInt(count.textContent) - 1;
+              button.classList.remove("text-primary");
+            }
+          });
+        });
+        // 查看大图功能
+        const previewButton = document.querySelector(
+          ".resource-preview + div button",
+        );
+        const previewImage = document.querySelector(".resource-preview img");
+        previewButton.addEventListener("click", function () {
+          const overlay = document.createElement("div");
+          overlay.className =
+            "fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center";
+          const img = document.createElement("img");
+          img.src = previewImage.src;
+          img.className = "max-w-[90%] max-h-[90vh] object-contain";
+          overlay.appendChild(img);
+          document.body.appendChild(overlay);
+          overlay.addEventListener("click", function () {
+            document.body.removeChild(overlay);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

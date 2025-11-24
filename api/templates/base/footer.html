@@ -1,0 +1,60 @@
+{% load static %}
+<footer class="bg-gray-800 text-gray-300 py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- 版权信息 -->
+      <div>
+        {% comment %} <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 inline-block">Lenjoy</a> {% endcomment %}
+        <a href="/" class="text-2xl text-netural">
+          <img width="48" height="48" src="{% static 'image/lenjoy.png' %}" alt="" class="inline" />
+          <span>乐享资源库</span>
+        </a>
+        <p class="text-gray-400 text-sm mt-4 mb-2">让知识触手可及，让成长没有边界</p>
+        <p class="text-gray-400 text-sm">乐享资源库@2025</p>
+        {% comment %} <p class="text-gray-400 text-sm mt-2">京ICP备12345678号-1</p> {% endcomment %}
+      </div>
+      <!-- 联系方式 -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+        <ul class="space-y-3">
+          <li class="flex items-center">
+            <div class="w-5 h-5 flex items-center justify-center mr-2 text-gray-400">
+              <i class="ri-mail-line"></i>
+            </div>
+            <a href="mailto:1765174487@qq.com" class="text-gray-400 hover:text-white transition-colors">1765174487@qq.com</a>
+          </li>
+          {% comment %} <li class="flex items-center">
+            <div class="w-5 h-5 flex items-center justify-center mr-2 text-gray-400">
+              <i class="ri-wechat-fill"></i>
+            </div>
+            <span class="text-gray-400">资源导航小助手</span>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 flex items-center justify-center mr-2 text-gray-400">
+              <i class="ri-weibo-fill"></i>
+            </div>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">@优质网络资源导航</a>
+          </li>
+          <li class="flex items-center">
+            <div class="w-5 h-5 flex items-center justify-center mr-2 text-gray-400">
+              <i class="ri-github-fill"></i>
+            </div>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">GitHub</a>
+          </li> {% endcomment %}
+        </ul>
+      </div>
+      <!-- 友情链接 -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">友情链接</h3>
+        <div class="grid grid-cols-2 gap-2">
+          <a href="https://www.bilibili.com/" target="_blank" class="text-gray-400 hover:text-white transition-colors">哔哩哔哩</a>
+          <a href="https://www.52pojie.cn/" target="_blank" class="text-gray-400 hover:text-white transition-colors">吾爱破解</a>
+          <a href="https://soali.net/" target="_blank" class="text-gray-400 hover:text-white transition-colors">soali网盘搜索</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-8 text-sm text-gray-500 text-center">
+      <p>本站所有资源均来自网络整理与用户分享，如有侵权请联系我们删除。</p>
+    </div>
+  </div>
+</footer>

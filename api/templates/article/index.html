@@ -1,0 +1,248 @@
+{% extends 'base/index.html' %}
+
+{% block title %}
+  {% if current_category_id %}
+    {{ parentCategory.name }}{% if subCategory %}
+      - {{ subCategory.name }}
+    {% endif %}- 乐享资源库
+  {% else %}
+    文章资源列表 - 乐享资源库
+  {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+  {% if current_category_id %}
+    浏览{{ parentCategory.name }}{% if subCategory %}
+      - {{ subCategory.name }}
+    {% endif %}分类下的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+  {% else %}
+    乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+  {% endif %}
+{% endblock %}
+
+{% block meta_keywords %}
+  {% if current_category_id %}
+    {{ parentCategory.name }}{% if subCategory %}
+      ,{{ subCategory.name }}
+    {% endif %},学习资源,教程,网盘资料，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利
+  {% else %}
+    学习资源,文章列表,教程,网盘资料，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利
+  {% endif %}
+{% endblock %}
+
+{% block og_title %}
+  {% if current_category_id %}
+    {{ parentCategory.name }}{% if subCategory %}
+      - {{ subCategory.name }}
+    {% endif %}- 乐享资源库
+  {% else %}
+    文章资源列表 - 乐享资源库
+  {% endif %}
+{% endblock %}
+
+{% block og_description %}
+  {% if current_category_id %}
+    浏览{{ parentCategory.name }}{% if subCategory %}
+      - {{ subCategory.name }}
+    {% endif %}分类下的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+  {% else %}
+    乐享资源库是一个免费的学习资源共享平台，提供优质的学习资料，云盘资源，网盘资源，课程，视频课程，知识付费课程，实用工具，羊毛福利。
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- 主要内容区 -->
+    <div class="w-full md:w-2/3">
+      {% include 'component/category_filter.html' %}
+
+      <!-- 文章列表 -->
+      <div class="mt-6 space-y-6">
+        {% for resource in resource_list %}
+          <a href="{% url 'article:detail' resource.id %}" class="block transition-transform hover:translate-x-1">
+            <div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col md:flex-row">
+              {% if resource.cover_img %}
+                <div class="md:w-1/3 w-full">
+                  <img src="{{ MEDIA_URL }}{{ resource.cover_img.url }}" alt="{{ resource.name }}" class="h-full w-full object-cover" />
+                </div>
+              {% endif %}
+              <div class="p-5 flex-1 flex flex-col justify-between {% if not resource.cover_img %}
+                  
+                   w-full
+
+                {% else %}
+                  
+                   md:w-2/3
+
+                {% endif %}">
+                <div>
+                  <div class="flex justify-between items-start mb-3">
+                    <h3 class="font-semibold text-lg text-gray-800 hover:text-primary">{{ resource.name }}</h3>
+                    <div class="flex flex-wrap gap-1 justify-end">
+                      {% for tag in resource.tags.all|slice:':2' %}
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">{{ tag.name }}</span>
+                      {% empty %}
+                        <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full">未分类</span>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <p class="text-gray-600 text-sm mb-4">{{ resource.content|striptags|truncatechars:150 }}</p>
+                </div>
+                <div class="flex justify-between items-center text-sm text-gray-500">
+                  <span class="flex items-center"><i class="ri-calendar-line mr-1"></i>{{ resource.created_time|date:'Y-m-d' }}</span>
+                  <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                      <i class="ri-eye-line mr-1"></i>
+                      <span>{{ resource.view_count }}</span>
+                    </div>
+                    <div class="flex items-center">
+                      <i class="ri-chat-1-line mr-1"></i>
+                      <span>{{ resource.comment_set.count|default:'0' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        {% empty %}
+          <div class="text-center p-8 bg-white rounded-lg shadow-sm">
+            <p class="text-gray-500">暂无文章</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% include 'component/pagination.html' %}
+    </div>
+
+    <!-- 侧边栏 -->
+    <div class="w-full md:w-1/3 space-y-6">
+      <!-- 最近热门文章 -->
+      <div class="bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition-shadow duration-300">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b flex items-center"><i class="ri-fire-line mr-2 text-red-500"></i>热门资源</h3>
+        <div class="space-y-4">
+          {% for hot_article in hot_articles|default:resource_list|slice:':5' %}
+            <a href="{% url 'article:detail' hot_article.id %}" class="block group">
+              <div class="flex items-start space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                <span class="flex-shrink-0 w-6 h-6 {% if forloop.counter == 1 %}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    bg-red-500 text-white group-hover:scale-110
+
+
+
+
+
+
+
+
+
+                  {% elif forloop.counter == 2 %}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    bg-yellow-500 text-white group-hover:scale-110
+
+
+
+
+
+
+
+
+
+                  {% elif forloop.counter == 3 %}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    bg-green-500 text-white group-hover:scale-110
+
+
+
+
+
+
+
+
+
+                  {% else %}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    bg-gray-100 text-gray-600 group-hover:bg-gray-200
+
+
+
+
+
+
+
+
+
+                  {% endif %} rounded-full flex items-center justify-center text-xs font-medium transition-all">
+                  {{ forloop.counter }}
+                </span>
+                <div class="flex-1">
+                  <h4 class="text-sm text-gray-700 font-medium group-hover:text-primary group-hover:font-semibold transition-all line-clamp-2">{{ hot_article.name }}</h4>
+                  <div class="text-xs text-gray-500 mt-1 flex items-center group-hover:text-gray-700 justify-between">
+                    <span><i class="ri-eye-line mr-1 group-hover:animate-pulse"></i>{{ hot_article.view_count }}</span>
+                    <span class="flex items-center"><i class="ri-calendar-line mr-1"></i>{{ hot_article.created_time|date:'Y-m-d' }}</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- 随机推荐 -->
+      <div class="bg-white rounded-lg shadow-sm p-5">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b flex items-center"><i class="ri-magic-line mr-2 text-indigo-500"></i>随机推荐</h3>
+        <div class="space-y-4">
+          {% for random_article in random_articles|default:resource_list|slice:':5' %}
+            <a href="{% url 'article:detail' random_article.id %}" class="block">
+              <div class="flex items-center space-x-3">
+                {% if random_article.cover_img %}
+                  <div class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+                    <img src="{{ MEDIA_URL }}{{ random_article.cover_img.url }}" alt="{{ random_article.name }}" class="w-full h-full object-cover" />
+                  </div>
+                {% else %}
+                  <div class="w-16 h-16 flex-shrink-0 rounded-md bg-gray-100 flex items-center justify-center">
+                    <i class="ri-article-line text-gray-400 text-xl"></i>
+                  </div>
+                {% endif %}
+                <div class="flex-1">
+                  <h4 class="text-sm text-gray-700 font-medium hover:text-primary transition-colors line-clamp-2">{{ random_article.name }}</h4>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,197 @@
+{% load static %} {{ all_categories|json_script:'json-data-all-categories' }}
+{{ all_sub_categories|json_script:'json-data-all-sub-categories' }}
+<div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+  <h2 class="text-xl font-semibold mb-6">资源分类</h2>
+  <!-- 一级分类 -->
+  <div class="mb-6">
+    <div class="flex flex-wrap gap-3" id="first-category-wrap">
+      <a href="{% url 'article:index' %}">
+        <button class="px-4 py-2 rounded-full whitespace-nowrap rounded-button {% if parentCategory is None %}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+             bg-neutral text-white
+
+
+
+
+
+
+
+
+
+          {% else %}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            hover:bg-neutral hover:text-white
+
+
+
+
+
+
+
+
+
+          {% endif %}">
+          全部
+        </button>
+      </a>
+      {% for item in all_categories %}
+        <a href="{% url 'article:category' category_id=item.id %}">
+          <button class="px-4 py-2 rounded-full rounded-button {% if parentCategory.id == item.id %}
+              
+              
+              
+              
+              
+              
+              
+              
+              
+               bg-neutral text-white
+
+
+
+
+
+
+
+
+
+            {% else %}
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              hover:bg-neutral hover:text-white
+
+
+
+
+
+
+
+
+
+            {% endif %}"
+            id="item-{{ item.id }}">
+            {{ item.name }}
+          </button>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- 二级分类 -->
+  {% if all_sub_categories|length > 0 %}
+    <div class="bg-gray-50 p-4 rounded-lg" id="sub-category-container">
+      {% if parentCategory %}
+        <h3 class="font-medium mb-3 text-gray-700" id="sub-category-tip">{{ parentCategory.name }}细分</h3>
+      {% endif %}
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3" id="sub-category-wrap">
+        {% for item in all_sub_categories %}
+          <a href="{% url 'article:category' category_id=item.id %}">
+            <button class="px-4 py-2 rounded-full rounded-button {% if subCategory.id == item.id %}
+                
+                
+                
+              
+              
+                
+                
+                
+                
+                 bg-neutral text-white
+
+
+
+
+
+
+
+
+
+              {% else %}
+                
+                
+                
+              
+              
+                
+                
+                
+                
+                hover:bg-neutral hover:text-white
+
+
+
+
+
+
+
+
+
+              {% endif %}">
+              {{ item.name }}
+            </button>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const allCategories = JSON.parse(document.getElementById('json-data-all-categories').textContent)
+    const subCategoryContainer = document.getElementById('sub-category-container')
+    const subCategoryWrap = document.getElementById('sub-category-wrap')
+    const subCategoryTip = document.getElementById('sub-category-tip')
+  
+    // 获取所有一级分类按钮
+    const firstCategoryButtons = document.querySelectorAll('#first-category-wrap a')
+  
+    // 为每个一级分类按钮添加点击事件
+    firstCategoryButtons.forEach((button) => {
+      button.addEventListener('click', function (e) {
+        const categoryId = this.getAttribute('href').split('/').pop()
+  
+        // 如果是"全部"按钮，隐藏二级分类
+        if (categoryId === '') {
+          subCategoryContainer.style.display = 'none'
+          return
+        }
+  
+        // 显示二级分类容器
+        subCategoryContainer.style.display = 'block'
+  
+        // 更新二级分类标题
+        const category = allCategories.find((c) => c.id === parseInt(categoryId))
+        if (category) {
+          subCategoryTip.textContent = `${category.name}细分`
+        }
+  
+        // 这里可以添加 AJAX 请求来获取二级分类数据
+        // 或者使用预加载的数据
+      })
+    })
+  })
+</script>

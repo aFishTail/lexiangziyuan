@@ -1,0 +1,43 @@
+GET http://localhost:8000/api/article/1
+Accept: application/json
+
+###
+
+POST http://localhost:8000/api/article/
+Accept: application/json
+
+{
+    "name": "测试文章",
+    "content": "测试文章内容",
+    "category_name": "Python",
+    "tag_names": ["人工智能"],
+    "source": "",
+    "remark": "备注信息"
+}
+###
+
+
+POST http://localhost:8000/api/token/
+Accept: application/json
+
+{
+ "username": "wangheng",
+ "password":"lenjoy123!@#"
+}
+
+
+###
+
+POST http://localhost:8000/api/test/
+Accept: application/json
+
+{
+    "name": "文章标题",
+    "content": "<div class=\"article-content\">\r\n\t\t\t\t<p><img src=\"/uploads/allimg/250406/1743917441609499.png\" title=\"1743917441609499.png\" alt=\"1.png\"></p><h6>课程介绍</h6><p>《AI短视频录播课带你入局跑通》课程专为希望快速进入短视频创作领域的学员设计。课程涵盖AI工具的使用、短视频脚本创作、拍摄技巧、后期剪辑和发布策略等内容，帮助学员系统性掌握短视频制作的全流程，实现快速上手与有效运营，助力个人或品牌在短视频平台上取得成功。</p><h6>学习地址</h6><p>百度：<a href=\"https://pan.baidu.com/s/10UEOixajwhGoF3WfH19sXQ?pwd=3g4d\" target=\"_blank\">https://pan.baidu.com/s/10UEOixajwhGoF3WfH19sXQ?pwd=3g4d</a></p><p>天翼：<a href=\"https://cloud.189.cn/t/u2eU3uvyIBnq%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Au5lc%EF%BC%89\" target=\"_blank\">https://cloud.189.cn/t/u2eU3uvyIBnq（访问码：u5lc）</a></p><p>阿里：<a href=\"https://www.alipan.com/s/Mwpn9rzACM8\" target=\"_blank\">https://www.alipan.com/s/Mwpn9rzACM8</a></p><p>夸克：<a href=\"https://pan.quark.cn/s/dbb620c65ce1\" target=\"_blank\">https://pan.quark.cn/s/dbb620c65ce1</a></p>\r\n\t\t\t</div>",
+    "category_name": "Python",
+    "tag_names": ["人工智能"],
+    "source": "小刀",
+    "remark": "备注信息"
+}
+
+###
