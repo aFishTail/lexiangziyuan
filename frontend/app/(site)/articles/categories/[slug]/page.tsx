@@ -11,7 +11,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { listArticleCategories, listArticles } from "@/lib/api/articles";
+import { getArticleCategories, getArticles } from "@/lib/api/articles";
+
+// 强制动态渲染，避免构建时预渲染
+export const dynamic = 'force-dynamic';
 
 const PAGE_SIZE = 9;
 
@@ -21,7 +24,7 @@ interface CategoryPageProps {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const categories = await listArticleCategories();
+  const categories = await getArticleCategories();
   const category = categories.find((item) => item.slug === params.slug);
 
   if (!category) {
@@ -43,8 +46,8 @@ export default async function ArticleCategoryPage({
   const page = Number(searchParams.page ?? "1") || 1;
 
   const [categories, articleResponse] = await Promise.all([
-    listArticleCategories(),
-    listArticles({ page, pageSize: PAGE_SIZE, category: params.slug }),
+    getArticleCategories(),
+    getArticles({ page, pageSize: PAGE_SIZE, category: params.slug }),
   ]);
 
   const category = categories.find((item) => item.slug === params.slug);

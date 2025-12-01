@@ -45,14 +45,10 @@ RUN addgroup --system --gid 1001 nodejs && \
 # 复制必要的文件
 COPY --from=builder /app/public ./public
 
-# 如果使用 standalone 模式
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# 如果没有 standalone 模式，使用这个（注释掉上面两行，取消注释下面）
-# COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-# COPY --from=builder /app/node_modules ./node_modules
-# COPY --from=builder /app/package.json ./package.json
+# 非 standalone 模式
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
@@ -66,4 +62,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
 # 启动应用
-CMD ["node", "server.js"]
+CMD ["pnpm", "start"]
