@@ -1,9 +1,12 @@
-# 第一阶段：依赖安装
-FROM node:20-alpine AS deps
+# syntax=docker.io/docker/dockerfile:1
 
 # 安装必要的依赖
 RUN apk add --no-cache libc6-compat
 
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # 复制 package.json 和 lock 文件
@@ -13,15 +16,19 @@ COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && corepack prepare pnpm@9.14.2 --activate
 RUN pnpm install --frozen-lockfile
 
-# 第二阶段：构建
-FROM node:20-alpine AS builder
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
 RUN apk add --no-cache libc6-compat
 RUN corepack enable && corepack prepare pnpm@9.14.2 --activate
 
+# Rebuild the source code only when needed
+FROM base AS builder
 WORKDIR /app
-
-# 从 deps 阶段复制 node_modules
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -35,12 +42,13 @@ ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
 # 构建应用
 RUN pnpm run build
 
-# 第三阶段：生产运行
-FROM node:20-alpine AS runner
+# Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED=1
 
 # 安装必要的运行时依赖
 RUN apk add --no-cache libc6-compat
@@ -49,7 +57,6 @@ RUN apk add --no-cache libc6-compat
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# 复制必要的文件
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
@@ -60,6 +67,9 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT=3000
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 
 # 健康检查
