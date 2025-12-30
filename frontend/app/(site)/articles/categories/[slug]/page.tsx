@@ -19,13 +19,14 @@ export const dynamic = 'force-dynamic';
 const PAGE_SIZE = 9;
 
 interface CategoryPageProps {
-  params: { slug: string };
-  searchParams: { page?: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
+  const { slug } = await params;
   const categories = await getArticleCategories();
-  const category = categories.find((item) => item.slug === params.slug);
+  const category = categories.find((item) => item.slug === slug);
 
   if (!category) {
     return {};
@@ -43,14 +44,16 @@ export default async function ArticleCategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
-  const page = Number(searchParams.page ?? "1") || 1;
+  const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+  const page = Number(pageParam ?? "1") || 1;
 
   const [categories, articleResponse] = await Promise.all([
     getArticleCategories(),
-    getArticles({ page, pageSize: PAGE_SIZE, category: params.slug }),
+    getArticles({ page, pageSize: PAGE_SIZE, category: slug }),
   ]);
 
-  const category = categories.find((item) => item.slug === params.slug);
+  const category = categories.find((item) => item.slug === slug);
 
   if (!category) {
     notFound();

@@ -28,6 +28,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from config import settings
+from common.health import health_check
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,6 +44,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    # 健康检查端点（用于 Docker 和负载均衡器）
+    path('api/health/', health_check, name='health_check'),
+    
     # Swagger 交互式文档
     path('swagger/',
          schema_view.with_ui('swagger', cache_timeout=0),

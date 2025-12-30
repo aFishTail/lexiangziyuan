@@ -17,7 +17,9 @@ import {
 } from "@/lib/api/resource-websites";
 import { getSiteStats } from "@/lib/api/stats";
 
-export const revalidate = 600;
+// 强制动态渲染，避免构建时预渲染
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function HomePage() {
   const [

@@ -8,18 +8,21 @@ import {
 import { cn } from "@/lib/utils";
 
 interface WebsitesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     category?: string;
-  };
+  }>;
 }
 
-export const revalidate = 300;
+// 强制动态渲染
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function WebsitesPage({
   searchParams,
 }: WebsitesPageProps) {
-  const currentCategory = searchParams.category
-    ? Number(searchParams.category)
+  const { category } = await searchParams;
+  const currentCategory = category
+    ? Number(category)
     : undefined;
 
   // 并行获取资源和分类数据

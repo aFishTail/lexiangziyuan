@@ -14,18 +14,19 @@ import {
 import { searchArticles, getTrendingKeywords } from "@/lib/api/search";
 
 interface SearchPageProps {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     page?: string;
-  };
+  }>;
 }
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q || "";
-  const page = Number(searchParams.page ?? "1") || 1;
+  const { q, page: pageParam } = await searchParams;
+  const query = q || "";
+  const page = Number(pageParam ?? "1") || 1;
 
   // 如果有搜索关键词，则执行搜索
   const searchResults = query

@@ -14,23 +14,26 @@ import { getArticles, getArticleCategories } from "@/lib/api/articles";
 import { cn } from "@/lib/utils";
 
 interface ArticlesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     category?: string;
     ordering?: string;
-  };
+  }>;
 }
 
-export const revalidate = 60;
+// 强制动态渲染
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function ArticlesPage({
   searchParams,
 }: ArticlesPageProps) {
-  const page = Number(searchParams.page ?? "1") || 1;
-  const category = searchParams.category
-    ? Number(searchParams.category)
+  const { page: pageParam, category: categoryParam, ordering: orderingParam } = await searchParams;
+  const page = Number(pageParam ?? "1") || 1;
+  const category = categoryParam
+    ? Number(categoryParam)
     : undefined;
-  const ordering = searchParams.ordering || "-created_time";
+  const ordering = orderingParam || "-created_time";
 
   // 获取数据
   const [articlesData, categories] = await Promise.all([

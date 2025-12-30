@@ -1,2 +1,2 @@
 export { default } from "./(site)/page";
-export { revalidate } from "./(site)/page";
+export { dynamic } from "./(site)/page";

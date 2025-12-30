@@ -2,6 +2,27 @@
 
 一个基于 Django + Next.js 的现代化全栈 Web 应用，采用前后端分离架构，支持 Docker 一键部署。
 
+## 🚀 快速开始
+
+### Windows 用户
+```powershell
+.\deploy.ps1
+```
+
+### Linux/macOS 用户
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+部署完成后访问：
+- **前端**: http://localhost
+- **后端 API**: http://localhost/api  
+- **管理后台**: http://localhost/admin
+- **API 文档**: http://localhost/swagger
+
+> 📖 详细说明请查看 [快速开始文档](QUICKSTART.md)
+
 ## ✨ 特性
 
 - 🎨 **现代化前端**: 使用 Next.js 15 + React 19 + TypeScript

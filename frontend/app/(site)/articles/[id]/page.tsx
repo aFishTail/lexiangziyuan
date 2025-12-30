@@ -16,15 +16,18 @@ import type { Article, ArticleSummary } from "@/lib/types/content";
 import { formatDate } from "@/lib/utils/format";
 
 interface ArticleDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export const revalidate = 300; // 缓存5分钟
+// 强制动态渲染
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // 生成动态 Meta 标签
 export async function generateMetadata({ params }: ArticleDetailPageProps) {
+  const { id } = await params;
   try {
-    const article = await getArticle(Number(params.id));
+    const article = await getArticle(Number(id));
 
     return {
       title: `${article.name} | Lenjoy`,
@@ -54,8 +57,9 @@ export async function generateMetadata({ params }: ArticleDetailPageProps) {
 export default async function ArticleDetailPage({
   params,
 }: ArticleDetailPageProps) {
+  const { id } = await params;
   try {
-    const articleId = Number(params.id);
+    const articleId = Number(id);
 
     // 获取资源详情
     const article = await getArticle(articleId);
