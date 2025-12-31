@@ -14,7 +14,7 @@ import {
 import { getArticleCategories, getArticles } from "@/lib/api/articles";
 
 // 强制动态渲染，避免构建时预渲染
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const PAGE_SIZE = 9;
 

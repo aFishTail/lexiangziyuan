@@ -20,7 +20,7 @@ interface ArticleDetailPageProps {
 }
 
 // 强制动态渲染
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 // 生成动态 Meta 标签

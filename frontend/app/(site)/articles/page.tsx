@@ -22,17 +22,19 @@ interface ArticlesPageProps {
 }
 
 // 强制动态渲染
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function ArticlesPage({
   searchParams,
 }: ArticlesPageProps) {
-  const { page: pageParam, category: categoryParam, ordering: orderingParam } = await searchParams;
+  const {
+    page: pageParam,
+    category: categoryParam,
+    ordering: orderingParam,
+  } = await searchParams;
   const page = Number(pageParam ?? "1") || 1;
-  const category = categoryParam
-    ? Number(categoryParam)
-    : undefined;
+  const category = categoryParam ? Number(categoryParam) : undefined;
   const ordering = orderingParam || "-created_time";
 
   // 获取数据

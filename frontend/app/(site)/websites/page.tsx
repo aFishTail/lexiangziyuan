@@ -14,16 +14,14 @@ interface WebsitesPageProps {
 }
 
 // 强制动态渲染
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function WebsitesPage({
   searchParams,
 }: WebsitesPageProps) {
   const { category } = await searchParams;
-  const currentCategory = category
-    ? Number(category)
-    : undefined;
+  const currentCategory = category ? Number(category) : undefined;
 
   // 并行获取资源和分类数据
   const [resourceWebsites, categories] = await Promise.all([
