@@ -15,14 +15,13 @@ def health_check(request):
         # 检查数据库连接
         with connection.cursor() as cursor:
             cursor.execute("SELECT 1")
-        
-        return JsonResponse({
-            "status": "healthy",
-            "database": "connected"
-        })
+
+        return JsonResponse({"status": "healthy", "database": "connected"})
     except Exception as e:
-        return JsonResponse({
-            "status": "unhealthy",
-            "database": "disconnected",
-            "error": str(e)
-        }, status=503)
+        return JsonResponse(
+            {
+                "status": "unhealthy",
+                "database": "disconnected",
+                "error": str(e)
+            },
+            status=503)

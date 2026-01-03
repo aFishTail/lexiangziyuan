@@ -16,10 +16,12 @@ function buildUrl(
   searchParams?: ApiFetchOptions["searchParams"]
 ) {
   // 直接拼接 URL，确保 path 前不要有 /
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  const baseUrl = API_BASE_URL.endsWith('/') ? API_BASE_URL : API_BASE_URL + '/';
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  const baseUrl = API_BASE_URL.endsWith("/")
+    ? API_BASE_URL
+    : API_BASE_URL + "/";
   const fullUrl = baseUrl + cleanPath;
-  
+
   const url = new URL(fullUrl);
 
   if (searchParams) {

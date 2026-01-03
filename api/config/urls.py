@@ -46,7 +46,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     # 健康检查端点（用于 Docker 和负载均衡器）
     path('api/health/', health_check, name='health_check'),
-    
+
     # Swagger 交互式文档
     path('swagger/',
          schema_view.with_ui('swagger', cache_timeout=0),
@@ -63,8 +63,11 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     # JWT 认证
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/', TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('api/token/refresh/',
+         TokenRefreshView.as_view(),
+         name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # API 路由

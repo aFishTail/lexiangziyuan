@@ -90,13 +90,21 @@ docker compose ps
 
 # Display access information
 Write-Host ""
-Write-Host "[SUCCESS] Deployment completed!" -ForegroundColor Green
+Write-Host "[SUCCESS] Backend services deployed!" -ForegroundColor Green
 Write-Host ""
-Write-Host "Access URLs:" -ForegroundColor Cyan
-Write-Host "   - Frontend:  http://localhost" -ForegroundColor White
-Write-Host "   - Backend API: http://localhost/api" -ForegroundColor White
-Write-Host "   - Admin Panel: http://localhost/admin" -ForegroundColor White
-Write-Host "   - API Docs: http://localhost/swagger" -ForegroundColor White
+Write-Host "Next Steps:" -ForegroundColor Cyan
+Write-Host "1. Start the frontend service locally:" -ForegroundColor White
+Write-Host "   cd frontend" -ForegroundColor Yellow
+Write-Host "   pnpm install      # First time only" -ForegroundColor Yellow
+Write-Host "   pnpm build        # Build for production" -ForegroundColor Yellow
+Write-Host "   pnpm start        # Start production server" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "2. Access URLs (after starting frontend):" -ForegroundColor Cyan
+Write-Host "   - Frontend:      http://localhost (via Nginx)" -ForegroundColor White
+Write-Host "   - Frontend Direct: http://localhost:3000" -ForegroundColor White
+Write-Host "   - Backend API:   http://localhost/api" -ForegroundColor White
+Write-Host "   - Admin Panel:   http://localhost/admin" -ForegroundColor White
+Write-Host "   - API Docs:      http://localhost/swagger" -ForegroundColor White
 Write-Host ""
 Write-Host "Common Commands:" -ForegroundColor Cyan
 Write-Host "   - View logs:    docker compose logs -f" -ForegroundColor White
