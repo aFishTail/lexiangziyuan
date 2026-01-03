@@ -274,12 +274,25 @@ docker compose restart nginx
 - 把 `server_name localhost;` 改成你的域名（建议同时写主域名和 www）：
   - `server_name example.com www.example.com;`
 - 如果你要强制跳转 HTTPS，可以把文件里注释的“HTTP强制跳转HTTPS”那段 server 取消注释，并把域名改成你的域名。
+> 注意：证书还没签发前，不要启用 443/ssl 相关配置，也不要把 80 全站跳转到 https，否则 Nginx 会因为找不到证书文件而启动失败，且 Let’s Encrypt 的 HTTP-01 校验也会失败。
 
 改完后执行：
 
 ```bash
 docker compose exec nginx nginx -t
 docker compose restart nginx
+```
+
+（强烈建议）先做一次 ACME 校验自检：
+
+```bash
+cd /opt/lenjoy/lxiangziyuan
+mkdir -p certbot/www/.well-known/acme-challenge
+echo ok > certbot/www/.well-known/acme-challenge/ping
+
+# 下面这个 URL 必须能从公网访问到（浏览器打开也行）
+curl -i http://lxziyuan.com/.well-known/acme-challenge/ping
+curl -i http://www.lxziyuan.com/.well-known/acme-challenge/ping
 ```
 
 ### 9.4 申请证书（HTTP-01）
@@ -289,22 +302,24 @@ docker compose restart nginx
 ```bash
 cd /opt/lenjoy/lxiangziyuan
 
-docker run --rm \
+# 建议：固定 certbot 版本，避免 latest 出现偶发异常（例如在非交互环境报 RecursionError）
+# 如果你是在 SSH / 脚本环境运行，务必加 --non-interactive
+docker run --rm -it \
   -v "$PWD/certbot/www:/var/www/certbot" \
   -v "$PWD/letsencrypt:/etc/letsencrypt" \
-  certbot/certbot certonly \
+  certbot/certbot:v2.11.0 certonly \
   --webroot -w /var/www/certbot \
-  -d example.com -d www.example.com \
-  --email you@example.com \
+  -d lxziyuan.com -d www.lxziyuan.com \
+  --email 1765174487@qq.com \
   --agree-tos \
-  --no-eff-email
+  --no-eff-email \
+  --non-interactive
 ```
 
 成功后，你会在宿主机看到：
 
 - `./letsencrypt/live/<你的域名>/fullchain.pem`
 - `./letsencrypt/live/<你的域名>/privkey.pem`
-
 ### 9.5 启用 HTTPS（443 server）
 
 `nginx/nginx.conf` 里已经有一段注释的 HTTPS server 模板：
