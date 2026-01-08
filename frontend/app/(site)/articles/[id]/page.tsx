@@ -193,24 +193,7 @@ function ArticleDetailView({
       <article className="container max-w-4xl py-12">
         {/* 富文本内容渲染 */}
         <div
-          className="prose prose-lg prose-neutral dark:prose-invert max-w-none
-                    prose-headings:font-bold prose-headings:tracking-tight
-                    prose-h1:text-4xl prose-h1:mb-8
-                    prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:pb-2
-                    prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
-                    prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3
-                    prose-p:leading-relaxed prose-p:mb-6
-                    prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-                    prose-strong:text-foreground prose-strong:font-semibold
-                    prose-code:text-primary prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-                    prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg
-                    prose-img:rounded-lg prose-img:shadow-lg
-                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-muted/50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic
-                    prose-ul:my-6 prose-ol:my-6
-                    prose-li:my-2
-                    prose-table:border-collapse prose-table:w-full
-                    prose-th:border prose-th:border-border prose-th:bg-muted prose-th:px-4 prose-th:py-2 prose-th:text-left
-                    prose-td:border prose-td:border-border prose-td:px-4 prose-td:py-2"
+          className="article-content"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
 
