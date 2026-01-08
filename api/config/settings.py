@@ -138,8 +138,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-useSqlite = os.environ.get('USE_SQLITE',
-                           'False') == 'True'
+useSqlite = os.environ.get('USE_SQLITE', 'False') == 'True'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -157,10 +156,9 @@ DATABASES = {
 } if not useSqlite else {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',  # 指定使用 sqlite3
-        'NAME': BASE_DIR / 'db.sqlite3',         # 数据库文件位置
+        'NAME': BASE_DIR / 'db.sqlite3',  # 数据库文件位置
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -225,7 +223,8 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'common.renderers.CustomJSONRenderer',
     ],
-    'EXCEPTION_HANDLER': 'common.exceptions.custom_exception_handler',
+    'EXCEPTION_HANDLER':
+    'common.exceptions.custom_exception_handler',
 }
 
 CKEDITOR_CONFIGS = {
@@ -241,11 +240,9 @@ CKEDITOR_CONFIGS = {
         'width':
         1200,
         'filebrowserUploadUrl':
-        '/ckeditor/upload/',  # 上传路由
-        'filebrowserUploadMethod': 'form',  # 使用表单方式上传
+        '/ckeditor/upload/',  # 上传路由[1](@ref)
         'extraPlugins':
-        'uploadimage',  # 启用上传插件
-        'removePlugins': 'exportpdf',  # 移除可能冲突的插件
+        'uploadimage'  # 启用上传插件[6](@ref)
     }
 }
 
@@ -414,9 +411,6 @@ LOGGING = {
     },
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://www.lxziyuan.com',
-    'https://lxziyuan.com'
-]
+CSRF_TRUSTED_ORIGINS = ['https://www.lxziyuan.com', 'https://lxziyuan.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
