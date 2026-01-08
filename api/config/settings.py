@@ -241,9 +241,11 @@ CKEDITOR_CONFIGS = {
         'width':
         1200,
         'filebrowserUploadUrl':
-        '/ckeditor/upload/',  # 上传路由[1](@ref)
+        '/ckeditor/upload/',  # 上传路由
+        'filebrowserUploadMethod': 'form',  # 使用表单方式上传
         'extraPlugins':
-        'uploadimage'  # 启用上传插件[6](@ref)
+        'uploadimage',  # 启用上传插件
+        'removePlugins': 'exportpdf',  # 移除可能冲突的插件
     }
 }
 
